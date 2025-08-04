@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+<div class="max-w-xl mx-auto bg-white p-6 rounded shadow">
+    <h2 class="text-xl font-bold mb-4" th:text="${id != null} ? 'Редактировать запись' : 'Создать запись'"></h2>
+    <form method="post" th:action="@{/viewer/save}">
+        <input type="hidden" name="table" th:value="${table}"/>
+        <input type="hidden" name="id" th:value="${id}"/>
+        <div th:each="header : ${columns}" class="mb-4">
+            <label class="block text-gray-700" th:text="${header}"></label>
+            <input type="text" th:name="${header}" th:value="${row.get(header)}"
+                   class="w-full px-3 py-2 border rounded"/>
+        </div>
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            💾 Сохранить
+        </button>
+    </form>
+</div>
+</body>
+</html>

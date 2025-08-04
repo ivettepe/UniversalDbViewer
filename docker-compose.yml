@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  viewer-app:
+    build: .
+    ports:
+      - "8088:8088"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/sneaker_shop
+      SPRING_DATASOURCE_USERNAME: mac2
+      SPRING_DATASOURCE_PASSWORD: 2700
+      SERVER_PORT: 8088

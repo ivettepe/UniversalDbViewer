@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER_CLASS_NAME:org.postgresql.Driver}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/sneaker_shop}
+    username: ${SPRING_DATASOURCE_USERNAME:mac2}
+    password: ${SPRING_DATASOURCE_PASSWORD:2700}
+
+server:
+  port: ${SERVER_PORT:8088}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Database Tables</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+<div class="max-w-4xl mx-auto">
+    <h1 class="text-2xl font-bold mb-6">Database Tables</h1>
+    <ul class="grid grid-cols-2 gap-4">
+        <li th:each="table : ${tables}">
+            <a th:href="@{|/viewer/table?table=${table}|}"
+               class="block bg-white shadow hover:shadow-md rounded p-4 text-blue-600 font-medium hover:underline">
+                <span th:text="${table}">Table Name</span>
+            </a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

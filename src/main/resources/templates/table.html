@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Таблица ' + ${table}"></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+<div class="max-w-7xl mx-auto bg-white p-4 shadow rounded-lg">
+    <h1 class="text-2xl font-bold mb-4" th:text="'Таблица: ' + ${table}"></h1>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full border border-gray-200">
+            <thead class="bg-gray-200 text-left text-sm font-semibold">
+            <tr>
+                <th th:each="header : ${headers}" th:text="${header}" class="p-2 border"></th>
+                <th class="p-2 border">Действия</th>
+            </tr>
+            </thead>
+            <tbody class="text-sm">
+            <tr th:each="row, stat : ${rows}" class="hover:bg-gray-50">
+                <td th:each="header : ${headers}"
+                    th:text="${row.get(header)}" class="p-2 border"></td>
+                <td class="p-2 border space-x-2">
+                    <a th:href="@{/viewer/edit(table=${table}, columns=${columns}, id=${row.get('id')})}"
+                       class="text-blue-600 hover:underline">✏️</a>
+                    <a th:href="@{/viewer/delete(table=${table}, id=${row.get('id')})}"
+                       onclick="return confirm('Удалить запись?')"
+                       class="text-red-600 hover:underline">🗑️</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Пагинация -->
+    <div class="flex justify-center mt-4 space-x-2">
+        <a th:if="${page > 0}"
+           th:href="@{/viewer/table(table=${table}, page=${page - 1}, size=${size}, columns=${columns})}"
+           class="px-3 py-1 border rounded hover:bg-gray-200">← Назад</a>
+
+        <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+            <a th:href="@{/viewer/table(table=${table}, page=${i}, size=${size}, columns=${columns})}"
+               th:text="${i + 1}"
+               th:class="'px-3 py-1 border rounded ' + (${i} == ${page} ? 'bg-blue-500 text-white' : 'hover:bg-gray-200')">
+            </a>
+        </span>
+
+        <a th:if="${page < totalPages - 1}"
+           th:href="@{/viewer/table(table=${table}, page=${page + 1}, size=${size}, columns=${columns})}"
+           class="px-3 py-1 border rounded hover:bg-gray-200">Вперёд →</a>
+    </div>
+    <div class="mt-4">
+        <a th:href="@{/viewer/create(table=${table}, columns=${columns})}"
+           class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">➕ Создать запись</a>
+    </div>
+</div>
+</body>
+</html>
